@@ -1,15 +1,15 @@
 /**
 
-    Author:  	Athanasios Kirmizis
-    Dept.:   	EE AUTH
-    AEM :    	8835
-    Course:  	Parallel And Distributed Systems
-	Assignment: #1
-	Season:  	2019 - 2020
-    E-mail : 	athakirm@ece.auth.gr
-    Prof:    	Nikolaos Pitsianis | Dimitrios Floros
+Author:  	Athanasios Kirmizis
+Dept.:   	EE AUTH
+AEM :    	8835
+Course:  	Parallel And Distributed Systems
+Assignment: 	#1
+Season:  	2019 - 2020
+E-mail : 	athakirm@ece.auth.gr
+Prof:    	Nikolaos Pitsianis | Dimitrios Floros
 
-    Build a Vantage Point Tree using Cilk
+Build a Vantage Point Tree using Cilk
 
 **/
 
