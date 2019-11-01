@@ -1,15 +1,15 @@
 /**
 
-    Author:  	Athanasios Kirmizis
-    Dept.:   	EE AUTH
-    AEM :    	8835
-    Course:  	Parallel And Distributed Systems
-	Assignment: #1
-	Season:  	2019 - 2020
-    E-mail : 	athakirm@ece.auth.gr
-    Prof:    	Nikolaos Pitsianis | Dimitrios Floros
+Author:  	Athanasios Kirmizis
+Dept.:   	EE AUTH
+AEM :    	8835
+Course:  	Parallel And Distributed Systems
+Assignment: 	#1
+Season:  	2019 - 2020
+E-mail : 	athakirm@ece.auth.gr
+Prof:    	Nikolaos Pitsianis | Dimitrios Floros
 
-    Build a Vantage Point Tree
+Build a Vantage Point Tree
 
 **/
 
@@ -213,6 +213,7 @@ struct vptree * vpt(int n, int dim, double *x, int *idxs)
 		}
 		
 		//We don't need the initial whole array anymore so free it
+		//Commented out to work with e-learning tester
 		//free(x);
 
 		//Do the recursions
