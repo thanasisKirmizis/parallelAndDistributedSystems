@@ -8,4 +8,4 @@ This repository holds the assignments for the course.
 - Assignment #3: ???
 - Assignment #4: ???
 
-For more information on each assignment read the README files on the corresponding directories.
+For more information on each assignment read the README files in the corresponding directories.
