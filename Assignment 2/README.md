@@ -14,7 +14,7 @@ https://www.analyticsvidhya.com/blog/2018/03/introduction-k-neighbours-algorithm
 
 ## Program analysis from execution on the HPC cluster 
 
-This assignment targets the implementation of the kNN algorithm for data that are distributed in disjoint
+Coming soon...
 
 ## Usage
 
