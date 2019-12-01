@@ -17,6 +17,7 @@ https://www.analyticsvidhya.com/blog/2018/03/introduction-k-neighbours-algorithm
 This project makes use of the OpenBLAS library. Make sure you have it installed and included the path
 of its installation files in your Makefile. To do that, edit the variable INCLUDES insided the provided Makefile to
 correspond to the path of your OpenBLAS installation.
+
 By then running `make lib` at a Linux terminal, the makefile creates the four static libraries in the `/lib` folder, one for
 each implementation. 
 You can then use those libraries to run them through a program of yours.
