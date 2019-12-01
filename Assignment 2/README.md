@@ -18,6 +18,6 @@ This project makes use of the OpenBLAS library. Make sure you have it installed 
 of its installation files in your Makefile. To do that, edit the variable INCLUDES insided the provided Makefile to
 correspond to the path of your OpenBLAS installation.
 
-By then running `make lib` at a Linux terminal, the makefile creates the four static libraries in the `/lib` folder, one for
-each implementation. 
+By then running `make lib` at a Linux terminal, the makefile creates two static libraries in the `/lib` folder, one for
+the sequential and one for the MPI implementation. 
 You can then use those libraries to run them through a program of yours.
