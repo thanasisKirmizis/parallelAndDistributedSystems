@@ -3,8 +3,8 @@
 
 This repository holds the assignments for the course. 
 
-- Assignment #1: *Vantage Point Tree*
-- Assignment #2: ???
+- Assignment #1: *Vantage Point Tree using parallel techniques*
+- Assignment #2: *kNN algorithm on Distributed Data using MPI*
 - Assignment #3: ???
 - Assignment #4: ???
 
