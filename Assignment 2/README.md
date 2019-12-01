@@ -12,6 +12,10 @@ You can try adjusting the size of input to check the difference in execution tim
 You can read more about kNN and its usages here: 
 https://www.analyticsvidhya.com/blog/2018/03/introduction-k-neighbours-algorithm-clustering/
 
+## Program analysis from execution on the HPC cluster 
+
+This assignment targets the implementation of the kNN algorithm for data that are distributed in disjoint
+
 ## Usage
 
 This project makes use of the OpenBLAS library. Make sure you have it installed and included the path
