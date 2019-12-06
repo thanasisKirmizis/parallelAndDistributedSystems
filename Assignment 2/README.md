@@ -16,17 +16,28 @@ https://www.analyticsvidhya.com/blog/2018/03/introduction-k-neighbours-algorithm
 
 Even though running the MPI implementation of a code on a single node (such as your local machine) might not provide any 
 substantial improvements, running it on a truly distributed system shows the true potential of the MPI "parallelization".
-In this case, the tests were done on this HPC cluster (https://it.auth.gr/en/hpc), in order to demonstrare the difference in execution time between the asynchronous versus the synchronous implementation. Below are the figures of the results:
+In this case, the tests were done on this HPC cluster (https://it.auth.gr/en/hpc), in order to demonstrare the difference in execution time between the asynchronous versus the synchronous implementation. Below are the results of the tests run to find the k=20 nearest neighbors on various input data sizes:
 
-|Graph 1       |Graph 2   |  Graph 3 |
-| :---------: | :---------: | :---------: |
-| ![graph 1](https://github.com/thanasisKirmizis/parallelAndDistributedSystems/blob/master/Assignment%202/graphs/b18.png)| ![graph 2](https://github.com/thanasisKirmizis/parallelAndDistributedSystems/blob/master/Assignment%202/graphs/b24.png)| ![graph 3](https://github.com/thanasisKirmizis/parallelAndDistributedSystems/blob/master/Assignment%202/graphs/b42.png)|
+|Graph 1      |
+| :---------: |
+| ![graph 1](https://github.com/thanasisKirmizis/parallelAndDistributedSystems/blob/master/Assignment%202/graphs/b18.png)| 
 
+|Graph 2   |
+| :---------: |
+|![graph 2](https://github.com/thanasisKirmizis/parallelAndDistributedSystems/blob/master/Assignment%202/graphs/b24.png)| 
+
+| Graph 3 |
+|:---------: |
+|![graph 3](https://github.com/thanasisKirmizis/parallelAndDistributedSystems/blob/master/Assignment%202/graphs/b42.png)|
+
+As we can see, the **more different nodes** of the distributed system are used to run the code, the more does the **communication time** between the various processes **increases**. By using asynchronous communications, we can "hide" that communications time under calculations time, so running the program even on many different nodes creates small difference in terms of time.
+Note that for very small input sizes, the calculations time becomes so small that the communications time cannot be hidden beneath it!
+
+Also note that by changing the k to k=200, there is no difference in communications time, so no improvement can be seen when compared to the corresponding graph for k=20:
 
 |Graph 4   |
 | :---------: |
 |![graph 4](https://github.com/thanasisKirmizis/parallelAndDistributedSystems/blob/master/Assignment%202/graphs/b42_k200.png)|
-
 
 
 ## Usage
