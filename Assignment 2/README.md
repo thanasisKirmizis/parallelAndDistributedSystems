@@ -18,6 +18,15 @@ Even though running the MPI implementation of a code on a single node (such as y
 substantial improvements, running it on a truly distributed system shows the true potential of the MPI "parallelization".
 In this case, the tests were done on this HPC cluster (https://it.auth.gr/en/hpc), in order to demonstrare the difference in execution time between the asynchronous versus the synchronous implementation. Below are the figures of the results:
 
+|Graph 1       |Graph 2   |  Graph 3 |
+| :---------: | :---------: | :---------: |
+| ![graph 1](https://github.com/thanasisKirmizis/parallelAndDistributedSystems/blob/master/Assignment%202/graphs/b18.png)| ![graph 2](https://github.com/thanasisKirmizis/parallelAndDistributedSystems/blob/master/Assignment%202/graphs/b24.png)| ![graph 3](https://github.com/thanasisKirmizis/parallelAndDistributedSystems/blob/master/Assignment%202/graphs/b42.png)|
+
+
+|Graph 4   |
+| :---------: |
+|![graph 4](https://github.com/thanasisKirmizis/parallelAndDistributedSystems/blob/master/Assignment%202/graphs/b42_k200.png)|
+
 
 
 ## Usage
