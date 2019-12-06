@@ -14,7 +14,11 @@ https://www.analyticsvidhya.com/blog/2018/03/introduction-k-neighbours-algorithm
 
 ## Program analysis from execution on the HPC cluster 
 
-Coming soon...
+Even though running the MPI implementation of a code on a single node (such as your local machine) might not provide any 
+substantial improvements, running it on a truly distributed system shows the true potential of the MPI "parallelization".
+In this case, the tests were done on this HPC cluster (https://it.auth.gr/en/hpc), in order to demonstrare the difference in execution time between the asynchronous versus the synchronous implementation. Below are the figures of the results:
+
+
 
 ## Usage
 
