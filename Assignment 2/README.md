@@ -20,15 +20,15 @@ In this case, the tests were done on this HPC cluster (https://it.auth.gr/en/hpc
 
 |Graph 1      |
 | :---------: |
-| ![graph 1]()| 
+| ![graph 1](https://github.com/thanasisKirmizis/parallelAndDistributedSystems/blob/master/Assignment%202/graphs/b18.png)| 
 
 |Graph 2   |
 | :---------: |
-|![graph 2]()| 
+|![graph 2](https://github.com/thanasisKirmizis/parallelAndDistributedSystems/blob/master/Assignment%202/graphs/b24.png)| 
 
 | Graph 3 |
 |:---------: |
-|![graph 3]()|
+|![graph 3](https://github.com/thanasisKirmizis/parallelAndDistributedSystems/blob/master/Assignment%202/graphs/b42.png)|
 
 As we can see, the **more different nodes** of the distributed system are used to run the code, the more does the **communication time** between the various processes **increases**. By using asynchronous communications, we can "hide" that communications time under calculations time, so running the program even on many different nodes creates small difference in terms of time.
 Note that for very small input sizes, the calculations time becomes so small that the communications time cannot be hidden beneath it!
@@ -37,7 +37,7 @@ Also note that by changing the k to k=200, there is no difference in communicati
 
 |Graph 4   |
 | :---------: |
-|![graph 4]()|
+|![graph 4](https://github.com/thanasisKirmizis/parallelAndDistributedSystems/blob/master/Assignment%202/graphs/b42_k200.png)|
 
 
 ## Usage
