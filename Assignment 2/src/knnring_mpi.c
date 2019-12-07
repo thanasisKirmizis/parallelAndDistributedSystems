@@ -101,7 +101,7 @@ knnresult kNN(double * X, double * Y, int n, int m, int d, int k)
 		//Then perform another k-1 quickselects but search only to the left of previous found element
 		for(int j=0; j<k; j++) {
 
-			res.ndist[i*k + j] = quickselect(tempDist,tempIdx,0,n-1,j);
+			res.ndist[i*k + j] = quickselect(tempDist,tempIdx,0,k-1,j);
 			res.nidx[i*k + j] = tempIdx[j];
 		}
 	}
