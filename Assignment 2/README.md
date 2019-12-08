@@ -30,7 +30,9 @@ In this case, the tests were done on this HPC cluster (https://it.auth.gr/en/hpc
 |:---------: |
 |![graph 3](https://github.com/thanasisKirmizis/parallelAndDistributedSystems/blob/master/Assignment%202/graphs/b42.png)|
 
-As we can see, the **more different nodes** of the distributed system are used to run the code, the more does the **communication time** between the various processes **increases**. By using asynchronous communications, we can "hide" that communications time under calculations time, so running the program even on many different nodes creates small difference in terms of time.
+Despite the fact that a greater improvement in time was probably expected from the asynchronous implementation, the difference is existing and obvious nonetheless. It's possible that this experiment was not really ideal to demonstrate the true capabilities of the asynchronous communications, likely due to the bottleneck here being the calculations, and not so much the communications.
+
+However, as we can see, the **more different nodes** of the distributed system are used to run the code, the more does the **communication time** between the various processes **increases**. By using asynchronous communications, we can "hide" that communications time under calculations time, so running the program even on many different nodes creates small difference in terms of time.
 Note that for very small input sizes, the calculations time becomes so small that the communications time cannot be hidden beneath it!
 
 Also note that by changing the k to k=200, there is no difference in communications time, so no improvement can be seen when compared to the corresponding graph for k=20:
