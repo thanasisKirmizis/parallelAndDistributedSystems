@@ -16,7 +16,8 @@ https://www.analyticsvidhya.com/blog/2018/03/introduction-k-neighbours-algorithm
 
 Even though running the MPI implementation of a code on a single node (such as your local machine) might not provide any 
 substantial improvements, running it on a truly distributed system shows the true potential of the MPI "parallelization".
-In this case, the tests were done on this HPC cluster (https://it.auth.gr/en/hpc), in order to demonstrare the difference in execution time between the asynchronous versus the synchronous implementation. Below are the results of the tests run to find the k=20 nearest neighbors on various input data sizes:
+In this case, the tests were done on this HPC cluster (https://it.auth.gr/en/hpc), in order to demonstrare the difference in execution time between the asynchronous versus the synchronous implementation. The goal here is to "hide" the communications time under calculations time, so running the program even on many different nodes may create small difference in terms of time. 
+Below are the results of the tests run to find the k=20 nearest neighbors on various input data sizes:
 
 |Graph 1      |
 | :---------: |
@@ -32,8 +33,7 @@ In this case, the tests were done on this HPC cluster (https://it.auth.gr/en/hpc
 
 Despite the fact that a greater improvement in time was probably expected from the asynchronous implementation, the difference is existing and obvious nonetheless. It's possible that this experiment was not really ideal to demonstrate the true capabilities of the asynchronous communications, likely due to the bottleneck here being the calculations, and not so much the communications.
 
-However, as we can see, the **more different nodes** of the distributed system are used to run the code, the more does the **communication time** between the various processes **increases**. By using asynchronous communications, we can "hide" that communications time under calculations time, so running the program even on many different nodes creates small difference in terms of time.
-Note that for very small input sizes, the calculations time becomes so small that the communications time cannot be hidden beneath it!
+However, as we can see, the **more different nodes** of the distributed system are used to run the code, the more does the **communication time** between the various processes **increases**. Note that for very small input sizes, the calculations time becomes so small that the communications time cannot be hidden beneath it!
 
 Also note that by changing the k to k=200, there is no difference in communications time, so no improvement can be seen when compared to the corresponding graph for k=20:
 
