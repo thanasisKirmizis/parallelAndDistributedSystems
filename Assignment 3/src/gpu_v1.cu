@@ -66,48 +66,48 @@ __global__ void ising(int *G, int *G2, double *w, int n){
 
 int main() {
 
-struct timeval start, end;
+	struct timeval start, end;
 
-    //Allocate host memory
-    int *G = (int*) malloc(N*N*sizeof(int));
+	//Allocate host memory
+	int *G = (int*) malloc(N*N*sizeof(int));
 
-    double w[25] = {0.004,  0.016,  0.026,  0.016,   0.004,
-                 0.016,  0.071,  0.117,  0.071,   0.016,
-                 0.026,  0.117,  0,      0.117,   0.026,
-                 0.016,  0.071,  0.117,  0.071,   0.016,
-                 0.004,  0.016,  0.026,  0.016,   0.004};
+	double w[25] = {0.004,  0.016,  0.026,  0.016,   0.004,
+		 0.016,  0.071,  0.117,  0.071,   0.016,
+		 0.026,  0.117,  0,      0.117,   0.026,
+		 0.016,  0.071,  0.117,  0.071,   0.016,
+		 0.004,  0.016,  0.026,  0.016,   0.004};
 
-    //Initialize the lattice
-    FILE *fp = fopen("conf-init.bin", "rb");
-    fread(G, sizeof(int), N * N, fp);
-    fclose(fp);
+	//Initialize the lattice
+	FILE *fp = fopen("conf-init.bin", "rb");
+	fread(G, sizeof(int), N * N, fp);
+	fclose(fp);
 
-    //Allocate device memory
-    int *d_G;
-    cudaMalloc((void**)&d_G, N*N*sizeof(int));
-    int *d_G2;
-    cudaMalloc((void**)&d_G2, N*N*sizeof(int));
-    double *d_w;
+	//Allocate device memory
+	int *d_G;
+	cudaMalloc((void**)&d_G, N*N*sizeof(int));
+	int *d_G2;
+	cudaMalloc((void**)&d_G2, N*N*sizeof(int));
+	double *d_w;
 	cudaMalloc((void**)&d_w, 25*sizeof(double));
 
-    //Transfer data from host to device memory
-    cudaMemcpy(d_G, G, N*N*sizeof(int), cudaMemcpyHostToDevice);
-    cudaMemcpy(d_G2, G, N*N*sizeof(int), cudaMemcpyHostToDevice);
-    cudaMemcpy(d_w, w, 25*sizeof(double), cudaMemcpyHostToDevice);
+	//Transfer data from host to device memory
+	cudaMemcpy(d_G, G, N*N*sizeof(int), cudaMemcpyHostToDevice);
+	cudaMemcpy(d_G2, G, N*N*sizeof(int), cudaMemcpyHostToDevice);
+	cudaMemcpy(d_w, w, 25*sizeof(double), cudaMemcpyHostToDevice);
 
 	dim3 threadsPerBlock( 1, 1 );
-    dim3 numBlocks( N/threadsPerBlock.x, N/threadsPerBlock.y );
-    
+	dim3 numBlocks( N/threadsPerBlock.x, N/threadsPerBlock.y );
+
 	gettimeofday(&start, NULL);
 
-    for(int i=0; i<11; i++) {
+	for(int i=0; i<11; i++) {
 
-        ising<<<numBlocks, threadsPerBlock>>>(d_G,d_G2,d_w,N);
-        cudaMemcpy(d_G2, d_G, N*N*sizeof(int), cudaMemcpyDeviceToDevice);
-    }
+		ising<<<numBlocks, threadsPerBlock>>>(d_G,d_G2,d_w,N);
+		cudaMemcpy(d_G2, d_G, N*N*sizeof(int), cudaMemcpyDeviceToDevice);
+	}
 
-    //Transfer data back to host memory
-    cudaMemcpy(G, d_G, N*N*sizeof(int), cudaMemcpyDeviceToHost);
+	//Transfer data back to host memory
+	cudaMemcpy(G, d_G, N*N*sizeof(int), cudaMemcpyDeviceToHost);
 
 	gettimeofday(&end, NULL);
 
@@ -133,13 +133,13 @@ struct timeval start, end;
 	}
 	printf("\n\nWrong Elements: %d\n\n", noobcnt);
 
-    //Deallocate device memory
-    cudaFree(d_G);
-    cudaFree(d_w);
+	//Deallocate device memory
+	cudaFree(d_G);
+	cudaFree(d_w);
 
-    //Deallocate host memory
-    free(G); 
-    free(G1);
+	//Deallocate host memory
+	free(G); 
+	free(G1);
 
-    return 0;
+	return 0;
 }
