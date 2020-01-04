@@ -18,3 +18,5 @@ This project makes use of CUDA programming. Make sure you have a compatible NVID
 
 You can then compile the CUDA files with `nvcc` and run them as usual at a Linux terminal.
 
+The bins that are included in the project can be used to initialize the Ising model states and also to verify its results after 1, 4, or 11 iterations.
+
