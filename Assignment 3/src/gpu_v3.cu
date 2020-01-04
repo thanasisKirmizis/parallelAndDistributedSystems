@@ -29,7 +29,7 @@ __global__ void ising(int *G, int *G2, double *w, int n){
 	int m_x = blockIdx.x * blockDim.x + threadIdx.x;
 	int m_y = blockIdx.y * blockDim.y + threadIdx.y;
 
-    int m = m_y*n + m_x;
+    	int m = m_y*n + m_x;
 
 	//Load the thread's data element into shared memory
 	subTile[threadIdx.y*BLOCK_DIM + threadIdx.x] = G2[m];
@@ -37,102 +37,100 @@ __global__ void ising(int *G, int *G2, double *w, int n){
 	//Ensure that all threads have loaded their values into shared memory
 	__syncthreads();
 
-    //Calculate the weighted influence of its neighbors
-    double infl = 0;
+    	//Calculate the weighted influence of its neighbors
+    	double infl = 0;
 
-    for(int a=0; a<5; a++) {
+    	for(int a=0; a<5; a++) {
 
-        for(int b=0; b<5; b++) {
+        	for(int b=0; b<5; b++) {
 
-            //$w{0,0} is undefined
-            if(a == 2 && b == 2) {
+            		//$w{0,0} is undefined
+            		if(a == 2 && b == 2) {
 
-                continue;
-            }
+                		continue;
+            		}
             	
-		//If reading value from same subTile, read from shared memory
-		if(threadIdx.y >= 2 && threadIdx.y < BLOCK_DIM-2
-		  && threadIdx.x >= 2 && threadIdx.x < BLOCK_DIM-2) {
+			//If reading value from same subTile, read from shared memory
+			if(threadIdx.y >= 2 && threadIdx.y < BLOCK_DIM-2
+			  && threadIdx.x >= 2 && threadIdx.x < BLOCK_DIM-2) {
 
-			int x = threadIdx.x+b-2;
-			int y = threadIdx.y+a-2;
-			int idx = x + y*BLOCK_DIM;
-		
-			infl = infl + w[a*5 + b]*subTile[idx];	
-		}
-		//If reading value from outer subTile, read from global memory
-		else {
+				int x = threadIdx.x+b-2;
+				int y = threadIdx.y+a-2;
+				int idx = x + y*BLOCK_DIM;
 
-			int x = (n+m+b-2)%n;
-			int y = (n+m/n+a-2)%n;
-			int idx = x + y*n;
+				infl = infl + w[a*5 + b]*subTile[idx];	
+			}
+			//If reading value from outer subTile, read from global memory
+			else {
 
-			infl = infl + w[a*5 + b]*G2[idx];
-		}
-        } 
-    }
+				int x = (n+m+b-2)%n;
+				int y = (n+m/n+a-2)%n;
+				int idx = x + y*n;
 
-    if(fabs(infl) < MAX_ERR) {
+				infl = infl + w[a*5 + b]*G2[idx];
+			}
+        	} 
+   	 }
 
-        G[m] = G2[m];
-    }
-    else if(infl < 0) {
-        
-        G[m] = -1;
-    }
-    else if(infl > 0) {
+    	if(fabs(infl) < MAX_ERR) {
 
-        G[m] = 1;
-    }   
-            
+		G[m] = G2[m];
+    	}
+    	else if(infl < 0) {
 
+		G[m] = -1;
+    	}
+    	else if(infl > 0) {
+
+		G[m] = 1;
+    	}              
 }
 
 
 int main() {
 
-struct timeval start, end;
+	struct timeval start, end;
 
-    //Allocate host memory
-    int *G = (int*) malloc(N*N*sizeof(int));
+	//Allocate host memory
+	int *G = (int*) malloc(N*N*sizeof(int));
 
-    double w[25] = {0.004,  0.016,  0.026,  0.016,   0.004,
-                 0.016,  0.071,  0.117,  0.071,   0.016,
-                 0.026,  0.117,  0,      0.117,   0.026,
-                 0.016,  0.071,  0.117,  0.071,   0.016,
-                 0.004,  0.016,  0.026,  0.016,   0.004};
+	double w[25] = {0.004,  0.016,  0.026,  0.016,   0.004,
+		 0.016,  0.071,  0.117,  0.071,   0.016,
+		 0.026,  0.117,  0,      0.117,   0.026,
+		 0.016,  0.071,  0.117,  0.071,   0.016,
+		 0.004,  0.016,  0.026,  0.016,   0.004};
 
-    //Initialize the lattice
-    FILE *fp = fopen("conf-init.bin", "rb");
-    fread(G, sizeof(int), N * N, fp);
-    fclose(fp);
+	//Initialize the lattice
+	FILE *fp = fopen("conf-init.bin", "rb");
+	fread(G, sizeof(int), N * N, fp);
+	fclose(fp);
 
-    //Allocate device memory
-    int *d_G;
-    cudaMalloc((void**)&d_G, N*N*sizeof(int));
-    int *d_G2;
-    cudaMalloc((void**)&d_G2, N*N*sizeof(int));
-    double *d_w;
+	//Allocate device memory
+	int *d_G;
+	cudaMalloc((void**)&d_G, N*N*sizeof(int));
+	int *d_G2;
+	cudaMalloc((void**)&d_G2, N*N*sizeof(int));
+	double *d_w;
 	cudaMalloc((void**)&d_w, 25*sizeof(double));
 
-    //Transfer data from host to device memory
-    cudaMemcpy(d_G, G, N*N*sizeof(int), cudaMemcpyHostToDevice);
-    cudaMemcpy(d_G2, G, N*N*sizeof(int), cudaMemcpyHostToDevice);
-    cudaMemcpy(d_w, w, 25*sizeof(double), cudaMemcpyHostToDevice);
+	//Transfer data from host to device memory
+	cudaMemcpy(d_G, G, N*N*sizeof(int), cudaMemcpyHostToDevice);
+	cudaMemcpy(d_G2, G, N*N*sizeof(int), cudaMemcpyHostToDevice);
+	cudaMemcpy(d_w, w, 25*sizeof(double), cudaMemcpyHostToDevice);
 
 	dim3 threadsPerBlock( BLOCK_DIM, BLOCK_DIM );
-    dim3 numBlocks( N/threadsPerBlock.x, N/threadsPerBlock.y );
+	dim3 numBlocks( N/threadsPerBlock.x, N/threadsPerBlock.y );
     
 	gettimeofday(&start, NULL);
 
-    for(int i=0; i<11; i++) {
+    	for(int i=0; i<11; i++) {
 
-        ising<<<numBlocks, threadsPerBlock>>>(d_G,d_G2,d_w,N);
-        cudaMemcpy(d_G2, d_G, N*N*sizeof(int), cudaMemcpyDeviceToDevice);
-    }
+        	ising<<<numBlocks, threadsPerBlock>>>(d_G,d_G2,d_w,N);
+        	cudaMemcpy(d_G2, d_G, N*N*sizeof(int), cudaMemcpyDeviceToDevice);
+    	}
 
-    //Transfer data back to host memory
-    cudaMemcpy(G, d_G, N*N*sizeof(int), cudaMemcpyDeviceToHost);
+    	//Transfer data back to host memory
+    	cudaMemcpy(G, d_G, N*N*sizeof(int), cudaMemcpyDeviceToHost);
 
 	gettimeofday(&end, NULL);
 
@@ -158,13 +156,13 @@ struct timeval start, end;
 	}
 	printf("\n\nWrong Elements: %d\n\n", noobcnt);
 
-    //Deallocate device memory
-    cudaFree(d_G);
-    cudaFree(d_w);
+	//Deallocate device memory
+	cudaFree(d_G);
+	cudaFree(d_w);
 
-    //Deallocate host memory
-    free(G); 
-    free(G1);
+	//Deallocate host memory
+	free(G); 
+	free(G1);
 
-    return 0;
+	return 0;
 }
