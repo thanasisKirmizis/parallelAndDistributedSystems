@@ -21,80 +21,79 @@
 */
 void ising( int *G, double *w, int k, int n){
   
-    //Keep a copy of G to read from/write to
-    int *G2 = malloc(n*n*sizeof(int));
-    memcpy(G2, G, n*n*sizeof(int));
+	//Keep a copy of G to read from/write to
+	int *G2 = malloc(n*n*sizeof(int));
+	memcpy(G2, G, n*n*sizeof(int));
 
-    int *temp;
+	int *temp;
 
-    //Do k iterations
-    for(int i=0; i<k; i++) {
+	//Do k iterations
+	for(int i=0; i<k; i++) {
 
-        //For each point of the square lattice
-        for(int m=0; m<n*n; m++) {
+		//For each point of the square lattice
+		for(int m=0; m<n*n; m++) {
 
-            //Calculate the weighted influence of its neighbors
-            double infl = 0;
-            for(int a=0; a<5; a++) {
+		    	//Calculate the weighted influence of its neighbors
+		    	double infl = 0;
+		    	for(int a=0; a<5; a++) {
 
-                for(int b=0; b<5; b++) {
+				for(int b=0; b<5; b++) {
 
-                    //$w{0,0} is undefined
-                    if(a == 2 && b == 2) {
+			    		//$w{0,0} is undefined
+			    		if(a == 2 && b == 2) {
 
-                        continue;
-                    }
-                    
-                    int x = (n+m+b-2)%n;
-                    int y = (n+m/n+a-2)%n;
-                    int idx =  x + y*n;
+						continue;
+			    		}
 
-                    infl = infl + w[a*5 + b]*G2[idx];
-                } 
-            }
+			    		int x = (n+m+b-2)%n;
+			    		int y = (n+m/n+a-2)%n;
+			    		int idx =  x + y*n;
 
-            if(fabs(infl) < MAX_ERR) {
+			    		infl = infl + w[a*5 + b]*G2[idx];
+				} 
+		    	}
 
-                G[m] = G2[m];
-            }
-            else if(infl < 0) {
-                
-                G[m] = -1;
-            }
-            else if(infl > 0) {
+		    	if(fabs(infl) < MAX_ERR) {
 
-                G[m] = 1;
-            }
-        }       
+				G[m] = G2[m];
+		    	}
+		    	else if(infl < 0) {
 
-        //Swap the arrays for reading/writing
-        temp = G2;
-        G2 = G;
-        G = temp;
+				G[m] = -1;
+		    	}
+		    	else if(infl > 0) {
 
-    }
+				G[m] = 1;
+		    	}
+		}       
+
+		//Swap the arrays for reading/writing
+		temp = G2;
+		G2 = G;
+		G = temp;
+	}
 
 	//Use a memcpy before return or else the lattice would return empty
-    memcpy(G, G2, n*n*sizeof(int));
+    	memcpy(G, G2, n*n*sizeof(int));
 }
 
 int main() {
 
 	struct timeval start, end;
 
-    //Allocate host memory
-    int *G = (int*) malloc(N*N*sizeof(int));
+    	//Allocate host memory
+    	int *G = (int*) malloc(N*N*sizeof(int));
 
-    double w[25] = {0.004,  0.016,  0.026,  0.016,   0.004,
+    	double w[25] = {0.004,  0.016,  0.026,  0.016,   0.004,
                  0.016,  0.071,  0.117,  0.071,   0.016,
                  0.026,  0.117,  0,      0.117,   0.026,
                  0.016,  0.071,  0.117,  0.071,   0.016,
                  0.004,  0.016,  0.026,  0.016,   0.004};
 
-    //Initialize the lattice
-    FILE *fp = fopen("conf-init.bin", "rb");
-    fread(G, sizeof(int), N * N, fp);
-    fclose(fp);
+    	//Initialize the lattice
+ 	FILE *fp = fopen("conf-init.bin", "rb");
+    	fread(G, sizeof(int), N * N, fp);
+    	fclose(fp);
 
 	gettimeofday(&start, NULL);
     
@@ -124,9 +123,9 @@ int main() {
 	}
 	printf("\n\nWrong Elements: %d\n\n", noobcnt);
 
-    //Deallocate host memory
-    free(G); 
-    free(G1);
+    	//Deallocate host memory
+    	free(G); 
+    	free(G1);
 
-    return 0;
+    	return 0;
 }
