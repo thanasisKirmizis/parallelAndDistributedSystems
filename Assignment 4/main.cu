@@ -26,7 +26,7 @@
 #include "inc/constructVpTree.cuh"
 #include "inc/allKnnSearch.cuh"
 
-#define LEN 15000
+#define LEN 10000
 #define DIMEN 2
 #define K 5
 #define NUMTHREADS 32
@@ -141,7 +141,7 @@ int main() {
 	//-------------------------------------------------------------------------------------//
 
 	//------------------------------ Then search kNNs through the tree --------------------------//
-
+	
 	//Allocate host and device memory
 	int *allKnnNeighbors = (int*)malloc(LEN*K*sizeof(int));
 	int *d_allKnnNeighbors;
@@ -152,11 +152,19 @@ int main() {
 	//Call the kernel to search through the tree for the kNNs of each of the points
 	//If more than (NUMBLOCKS*NUMTHREADS) threads are about to be created, cap them at (NUMBLOCKS*NUMTHREADS) at a time
 	int steps = (int)(fullTreeLen+1)/(NUMBLOCKS*NUMTHREADS);
-	for(int j=0; j<steps; j++) {
+	if(steps > 0) {
 
-		findKnnNeighbors<<<2*NUMBLOCKS, NUMTHREADS/2>>>(DIMEN, K, d_X, d_treeArray, d_allKnnNeighbors, (NUMBLOCKS*NUMTHREADS)*j, treeDepth+1);
+		for(int j=0; j<steps; j++) {
+
+			findKnnNeighbors<<<2*NUMBLOCKS, NUMTHREADS/2>>>(DIMEN, K, d_X, d_treeArray, d_allKnnNeighbors, (NUMBLOCKS*NUMTHREADS)*j, treeDepth+1);
+		}
+		cudaDeviceSynchronize();
 	}
-	cudaDeviceSynchronize();
+	else {
+
+		findKnnNeighbors<<<2*NUMBLOCKS, NUMTHREADS/2>>>(DIMEN, K, d_X, d_treeArray, d_allKnnNeighbors, 0, treeDepth+1);
+		cudaDeviceSynchronize();
+	}
 
 	gettimeofday(&end2, NULL);
 
