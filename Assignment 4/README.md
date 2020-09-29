@@ -1,12 +1,10 @@
-# Assignment 4: Implement the construction of a VP Tree and perform All-kNN Search on the Tree using CUDA
+# Assignment 4: Implement the construction of a VP Tree and perform All-kNN search on the tree using CUDA
 
 ## Description
 
 This assignment targets the optimization of the construction of a VP Tree data structure with the use of CUDA, as well as the performance of an All-kNN search on the points of the tree.
 
-You can try running the files to check the difference in execution time between these implementations. 
-You can read more about the Ising model and its usages here: 
-https://en.wikipedia.org/wiki/Ising_model
+You can try adjusting the size of input to check the difference in execution time between the implementations. You can read more about Vantage Point Trees and its usages here: https://fribbels.github.io/vptree/writeup
 
 ## Usage
 
