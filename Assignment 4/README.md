@@ -12,3 +12,6 @@ This project makes use of CUDA programming. Make sure you have a compatible NVID
 
 You can then compile the CUDA files with `nvcc main.cu` and run them as usual at a Linux terminal.
 
+By running the file `main.cu`, the program is going to ask for user input. Press 1 to display simple results or 2 to display detailed results.
+At the end of each part of the program, a mini-tester has been implemented to check whether the program finished correctly or any error (usually memory leaks) has been occured.
+
